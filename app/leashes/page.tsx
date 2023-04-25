@@ -18,9 +18,12 @@ function Card({
   return (
     <div className="h-[500px] max-w-xs w-full flex flex-col rounded-md hover:shadow-2xl">
       <div className="h-3/4">
-        <Link className="h-full relative w-full block" href={`/`}>
+        <Link
+          className="h-full relative w-full block rounded-md overflow-hidden"
+          href={`/`}
+        >
           <Image
-            className="rounded-md"
+            className="rounded-md hover:scale-110"
             fill={true}
             src={imgSrc}
             alt={`${productName} product image`}
