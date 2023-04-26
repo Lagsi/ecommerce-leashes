@@ -1,0 +1,27 @@
+import { FaGithub } from "react-icons/fa";
+
+export default function Footer() {
+  return (
+    <footer className="flex gap-4 items-center justify-center mb-4 mt-6">
+      <div>
+        <a href="https://github.com/Lagsi/ecommerce-leashes">
+          <FaGithub size={35} />
+        </a>
+      </div>
+      <div className="flex divide-x divide-black">
+        <a
+          className="text-center px-3 font-semibold hover:tracking-wider"
+          href="https://twitter.com/jeppehauman"
+        >
+          Jeppe
+        </a>
+        <a
+          className="text-center px-3 font-semibold hover:tracking-wider"
+          href="https://twitter.com/NimTheZee"
+        >
+          Nima
+        </a>
+      </div>
+    </footer>
+  );
+}
