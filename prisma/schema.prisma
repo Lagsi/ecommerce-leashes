@@ -20,4 +20,7 @@ model Product {
   color       String
   length      Int
   imgSrc      String?
+  onSale      Boolean  @default(false)
+  salePercent Int?
+  saleAmount  Float?
 }

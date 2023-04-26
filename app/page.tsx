@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="relative mt-16 h-full w-full flex p-32 justify-between items-center text-center bg-[url('/main-bg-elisa-kennemer.jpg')] bg-center bg-cover">
+    <div className="flex-grow max-h-[calc(100vh-8rem)] mt-16 h-full w-full flex p-32 justify-between items-center text-center  bg-[url('/main-bg-elisa-kennemer.jpg')] bg-center bg-cover ">
       <div className="w-1/4 flex flex-col gap-6">
         <Link
           className="bg-white font-semibold text-stone-500 py-4 text-lg rounded-lg hover:bg-opacity-20 border-2 border-transparent hover:border-white hover:border-2 hover:text-white"
