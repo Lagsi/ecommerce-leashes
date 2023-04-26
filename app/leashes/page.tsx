@@ -16,14 +16,14 @@ function Card({
   discountPercent,
 }: CardProps) {
   return (
-    <div className="h-[500px] max-w-xs w-full flex flex-col rounded-md hover:shadow-2xl">
+    <div className="h-[500px] max-w-xs w-full flex flex-col p-3 bg-white rounded-md hover:scale-[1.02] transition ease-out shadow-xl hover:shadow-2xl">
       <div className="h-3/4">
         <Link
           className="h-full relative w-full block rounded-md overflow-hidden"
           href={`/`}
         >
           <Image
-            className="rounded-md hover:scale-110"
+            className="rounded-md"
             fill={true}
             src={imgSrc}
             alt={`${productName} product image`}
@@ -31,16 +31,15 @@ function Card({
         </Link>
       </div>
 
-      <div className="px-12 py-4 text-stone-100 font-semibold">
-        <Link href={`/`} className=" flex flex-col items-center justify-center">
-          <p className="w-fit">{productName}</p>
+      <div className="py-4 text-gray-800 font-semibold">
+        <Link href={`/`} className="flex flex-col gap-2">
+          <p className="w-fit text-xl">{productName}</p>
 
           <p
-            className={`w-fit ${
-              discountPercent
-                ? "line-through text-gray-200 text-lg"
+            className={`w-fit ${discountPercent
+                ? "line-through text-gray-700"
                 : "underline text-xl"
-            }`}
+              }`}
           >{`$${productPrice}`}</p>
           {discountPercent && (
             <p className="underline w-fit text-xl">
@@ -72,6 +71,7 @@ export default async function LeashesPage() {
           imgSrc="/hamza-gharnati-small.jpg"
           productName="Leather leash - Black"
           productPrice={100}
+          discountPercent={20}
         />
         {leashes?.map((leash: any) => (
           <Card
@@ -79,6 +79,7 @@ export default async function LeashesPage() {
             productName={leash.title}
             productPrice={leash.price}
             imgSrc={leash.imgSrc}
+            // discountPercent={20}
           />
         ))}
       </div>
