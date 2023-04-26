@@ -16,7 +16,7 @@ function Card({
   discountPercent,
 }: CardProps) {
   return (
-    <div className="h-[500px] max-w-xs w-full flex flex-col p-3 bg-white rounded-md hover:scale-[1.02] transition ease-out shadow-xl hover:shadow-2xl">
+    <div className="h-[500px] max-w-xs w-full flex flex-col p-3 bg-stone-100 rounded-md hover:scale-[1.02] transition ease-out shadow-xl hover:shadow-2xl">
       <div className="h-3/4">
         <Link
           className="h-full relative w-full block rounded-md overflow-hidden"
@@ -36,10 +36,11 @@ function Card({
           <p className="w-fit text-xl">{productName}</p>
 
           <p
-            className={`w-fit ${discountPercent
+            className={`w-fit ${
+              discountPercent
                 ? "line-through text-gray-700"
                 : "underline text-xl"
-              }`}
+            }`}
           >{`$${productPrice}`}</p>
           {discountPercent && (
             <p className="underline w-fit text-xl">
