@@ -34,9 +34,9 @@ export default function Card({
 
             <div className="py-4 text-gray-800 font-semibold">
                 <Link href={`/`} className="flex flex-col gap-2">
-                    <div>
+                    <div className="flex justify-between items-center">
                         <p className="w-fit text-xl">{productName}</p>
-                        <p className="w-fit text-xl">{productColor}</p>
+                        <p className="w-fit">{productColor}</p>
                     </div>
                     <p
                         className={`w-fit ${discountPercent
