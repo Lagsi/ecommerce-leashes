@@ -21,7 +21,8 @@ export default function RootLayout({
         className={`${inter.className} bg-stone-500 min-h-screen flex flex-col`}
       >
         <Header />
-        {children}
+        <div className="mt-16 flex-grow text-stone-100">{children}</div>
+
         <Footer />
       </body>
     </html>
