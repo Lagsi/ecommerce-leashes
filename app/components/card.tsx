@@ -19,7 +19,7 @@ export default function Card({
   discountPercent,
 }: CardProps) {
   return (
-    <div className="h-[500px] max-w-xs w-full flex flex-col p-3 bg-stone-100 rounded-md hover:scale-[1.02] transition ease-out shadow-xl hover:shadow-2xl">
+    <div className="h-[400px] max-w-xs w-full flex flex-col p-3 bg-stone-100 rounded-md hover:scale-[1.02] transition ease-out shadow-xl hover:shadow-2xl">
       <div className="h-3/4">
         <Link
           className="h-full relative w-full block rounded-md overflow-hidden"

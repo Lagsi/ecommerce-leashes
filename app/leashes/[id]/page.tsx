@@ -31,7 +31,7 @@ export default async function LeashPage({
 
   return (
     <>
-      <div className="flex flex-col mx-auto min-h-[calc(100vh-8rem)] max-w-lg lg:flex-row lg:max-w-6xl lg:justify-center lg:items-center">
+      <div className="flex flex-col mx-auto min-h-[calc(100vh-8rem)] max-w-lg lg:flex-row lg:gap-10 lg:max-w-6xl lg:justify-center lg:items-center">
         <div className="w-full relative md:rounded-b-lg lg:max-w-lg">
           <img
             src={leash.imgSrc!}
