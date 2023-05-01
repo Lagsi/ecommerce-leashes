@@ -1,10 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useAtom, useSetAtom } from "jotai";
+import { useEffect, useState } from "react";
 import { FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
 
-export default function AddToCart() {
+interface AddToCartProps {
+  id: string;
+  price: number;
+  title: string;
+}
+
+export default function AddToCart({ id, price, title }: AddToCartProps) {
   const [nOfitems, setNOfItems] = useState(1);
+  const [itemsInCart, setItemsInCart] = useState(
+    JSON.parse(localStorage.getItem("itemsInCart")!) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
+  }, [itemsInCart]);
+
+  function addToCart(id: string, price: number, title: string) {
+    let item = { id: id, price: price, title: title };
+    setItemsInCart((prev: any) => [item, ...prev]);
+  }
   return (
     <div className="flex gap-4">
       <div className="flex gap-4 w-1/3 justify-between bg-stone-400 rounded-lg py-2 px-2">
@@ -23,7 +42,10 @@ export default function AddToCart() {
         </button>
       </div>
       <div className="flex-grow ">
-        <button className="w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl">
+        <button
+          onClick={() => addToCart(id, price, title)}
+          className="w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl"
+        >
           <FaShoppingCart />
           Add to cart
         </button>

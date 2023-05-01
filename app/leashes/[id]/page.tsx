@@ -27,7 +27,12 @@ export default async function LeashPage({
     );
   }
   leash.onSale = true;
-  leash.salePercent = 50;
+  // leash.salePercent = 50;
+  leash.saleAmount = 5;
+  let finalPrice;
+  leash.salePercent
+    ? (finalPrice = leash.price * (1 - leash.salePercent / 100))
+    : (finalPrice = leash.price - leash.saleAmount!);
 
   return (
     <>
@@ -62,7 +67,7 @@ export default async function LeashPage({
                   </span>
                   <span className="bg-teal-800 text-teal-950 px-2 rounded-md font-semibold text-sm">
                     {leash.saleAmount
-                      ? leash.saleAmount
+                      ? "-$" + leash.saleAmount
                       : leash.salePercent + "%"}
                   </span>
                 </div>
@@ -80,7 +85,7 @@ export default async function LeashPage({
               </div>
             )}
           </div>
-          <AddToCart />
+          <AddToCart id={leash.id} price={finalPrice} title={leash.title} />
         </div>
       </div>
     </>

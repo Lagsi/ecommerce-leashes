@@ -28,6 +28,7 @@ export default function Card({
           <Image
             className="rounded-md"
             fill={true}
+            style={{ objectFit: "cover" }}
             src={imgSrc}
             alt={`${productName} product image`}
           />
