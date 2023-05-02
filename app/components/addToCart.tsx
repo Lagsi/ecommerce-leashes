@@ -3,6 +3,7 @@
 import { useAtom, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
+import { cart } from "../store";
 
 interface AddToCartProps {
   id: string;
@@ -12,17 +13,15 @@ interface AddToCartProps {
 
 export default function AddToCart({ id, price, title }: AddToCartProps) {
   const [nOfitems, setNOfItems] = useState(1);
-  const [itemsInCart, setItemsInCart] = useState(
-    JSON.parse(localStorage.getItem("itemsInCart")!) || []
-  );
-
-  useEffect(() => {
-    localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
-  }, [itemsInCart]);
+  const [itemsInCart, setItemsInCart] = useAtom(cart);
+  // const [itemsInCart, setItemsInCart] = useState(
+  //   JSON.parse(localStorage.getItem("itemsInCart")!) || []
+  // );
 
   function addToCart(id: string, price: number, title: string) {
     let item = { id: id, price: price, title: title };
     setItemsInCart((prev: any) => [item, ...prev]);
+    localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
   }
   return (
     <div className="flex gap-4">

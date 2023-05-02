@@ -1,12 +1,22 @@
 "use client";
 
+import { useAtom } from "jotai";
+import { cart } from "../store";
+import { Item } from "../store";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 
 export default function Header() {
+  const [itemsInCart, setItemsInCart] = useAtom(cart);
   const [cartOpen, setCartOpen] = useState(false);
-  const [itemsInCart, setItemsInCart] = useState([]);
+  useEffect(() => {
+    setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!) || []);
+  }, []);
+
+  // const [itemsInCart, setItemsInCart] = useState(
+  //   JSON.parse(localStorage.getItem("itemsInCart")!) || []
+  // );
   const cartRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const checkForOutsideCartClick = (e: any) => {
@@ -42,7 +52,6 @@ export default function Header() {
           <FaShoppingCart
             onClick={() => {
               setCartOpen(!cartOpen);
-              setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!));
             }}
             color="#F5F5F4"
             size={24}
@@ -59,7 +68,7 @@ export default function Header() {
             </div>
             {itemsInCart.length >= 1 ? (
               <div>
-                {itemsInCart.map((item: any, i) => (
+                {itemsInCart.map((item: any, i: any) => (
                   <div key={i} className="flex gap-4">
                     <h3>{item.title}</h3>
                     <span>${item.price}</span>
