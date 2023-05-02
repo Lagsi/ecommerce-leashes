@@ -2,21 +2,30 @@
 
 import { useAtom } from "jotai";
 import { cart } from "../store";
-import { Item } from "../store";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaTrash } from "react-icons/fa";
 
 export default function Header() {
   const [itemsInCart, setItemsInCart] = useAtom(cart);
-  const [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(() => false);
+  let totalAmount: number = 0;
+  const router = useRouter();
+
+  //Setting the itemsInCart atom from localStorage value
   useEffect(() => {
     setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!) || []);
   }, []);
 
-  // const [itemsInCart, setItemsInCart] = useState(
-  //   JSON.parse(localStorage.getItem("itemsInCart")!) || []
-  // );
+  //Setting the localStorage value from itemsInChart, every time our state is changing, but only if itemsInChart(atom).length is > 0
+  useEffect(() => {
+    if (itemsInCart.length > 0) {
+      localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
+    }
+  }, [itemsInCart]);
+
+  //Checking for clicks outside our cart to close it
   const cartRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const checkForOutsideCartClick = (e: any) => {
@@ -58,28 +67,59 @@ export default function Header() {
             className="hover:cursor-pointer"
           />
         </div>
-        {cartOpen && (
+        {
           <div
             ref={cartRef}
-            className="absolute right-20 top-10 p-6 z-50 bg-stone-500 rounded-lg border-stone-700 border"
+            className={`absolute p-6 z-50 bg-stone-500 rounded-lg border-stone-700 border  ${
+              cartOpen ? "right-14" : "-right-96"
+            } transition-all ease-in-out duration-1000`}
           >
             <div className="border-b">
               <h2 className="text-xl">Cart</h2>
             </div>
             {itemsInCart.length >= 1 ? (
-              <div>
-                {itemsInCart.map((item: any, i: any) => (
-                  <div key={i} className="flex gap-4">
-                    <h3>{item.title}</h3>
-                    <span>${item.price}</span>
-                  </div>
-                ))}
+              <div className="">
+                {itemsInCart.map((item: any, i: any) => {
+                  totalAmount += item.price * item.quantity;
+                  return (
+                    <div key={i} className="grid grid-cols-[50%,1fr,1fr] gap-4">
+                      <h3>
+                        {`${item.title} ${item.color}`} x {item.quantity}
+                      </h3>
+                      <span>${item.price * item.quantity}</span>
+                      <button
+                        onClick={() => {
+                          const filtered = itemsInCart.filter(
+                            (filter) => filter.id !== item.id
+                          );
+                          setItemsInCart(filtered);
+                        }}
+                      >
+                        <FaTrash className="mr-0 ml-auto" />
+                      </button>
+                    </div>
+                  );
+                })}
+                <div className="border-t mt-2 grid grid-cols-[50%,1fr,1fr] gap-4">
+                  <p>Total: </p>
+                  <p>${totalAmount}</p>
+                </div>
+                <button
+                  className="w-full border border-transparent text-stone-100 bg-teal-950 rounded-lg mt-4 hover:border-teal-950
+                  hover:bg-stone-100 hover:text-teal-950 transition ease-in-out"
+                  onClick={() => {
+                    router.push("/leashes");
+                    setCartOpen(false);
+                  }}
+                >
+                  Checkout
+                </button>
               </div>
             ) : (
               <p>No items in cart..</p>
             )}
           </div>
-        )}
+        }
       </div>
     </header>
   );

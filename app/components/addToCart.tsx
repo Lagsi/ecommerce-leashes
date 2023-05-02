@@ -18,10 +18,19 @@ export default function AddToCart({ id, price, title }: AddToCartProps) {
   //   JSON.parse(localStorage.getItem("itemsInCart")!) || []
   // );
 
-  function addToCart(id: string, price: number, title: string) {
-    let item = { id: id, price: price, title: title };
-    setItemsInCart((prev: any) => [item, ...prev]);
-    localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
+  function addToCart(
+    id: string,
+    price: number,
+    title: string,
+    quantity: number
+  ) {
+    let item = { id: id, price: price, title: title, quantity: quantity };
+    const identicalItem = itemsInCart.find((x) => x.id === item.id);
+    if (identicalItem) {
+      identicalItem.quantity += item.quantity;
+    } else {
+      setItemsInCart((prev: any) => [item, ...prev]);
+    }
   }
   return (
     <div className="flex gap-4">
@@ -42,7 +51,7 @@ export default function AddToCart({ id, price, title }: AddToCartProps) {
       </div>
       <div className="flex-grow ">
         <button
-          onClick={() => addToCart(id, price, title)}
+          onClick={() => addToCart(id, price, title, nOfitems)}
           className="w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl"
         >
           <FaShoppingCart />
