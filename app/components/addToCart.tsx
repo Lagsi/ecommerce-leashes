@@ -2,7 +2,7 @@
 
 import { useAtom, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
+import { FaCheck, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
 import { cart } from "../store";
 
 interface AddToCartProps {
@@ -15,6 +15,7 @@ interface AddToCartProps {
 export default function AddToCart({ id, price, title, color }: AddToCartProps) {
   const [nOfitems, setNOfItems] = useState(1);
   const [itemsInCart, setItemsInCart] = useAtom(cart);
+  const [successVisible, setSuccessVisible] = useState(false);
   // const [itemsInCart, setItemsInCart] = useState(
   //   JSON.parse(localStorage.getItem("itemsInCart")!) || []
   // );
@@ -39,6 +40,11 @@ export default function AddToCart({ id, price, title, color }: AddToCartProps) {
     } else {
       setItemsInCart((prev: any) => [item, ...prev]);
     }
+    setSuccessVisible(true);
+    setNOfItems(1);
+    setTimeout(() => {
+      setSuccessVisible(false);
+    }, 2000);
   }
   return (
     <div className="flex gap-4">
@@ -60,10 +66,11 @@ export default function AddToCart({ id, price, title, color }: AddToCartProps) {
       <div className="flex-grow ">
         <button
           onClick={() => addToCart(id, price, title, color, nOfitems)}
-          className="w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl"
+          className={`w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl`}
         >
-          <FaShoppingCart />
-          Add to cart
+          {!successVisible && <FaShoppingCart />}{" "}
+          {!successVisible && "Add to cart"}
+          {successVisible && <FaCheck />} {successVisible && "Added!"}
         </button>
       </div>
     </div>

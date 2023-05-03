@@ -14,7 +14,9 @@ export default async function LeashesPage() {
 
   return (
     <div className="px-6">
-      <h1 className="text-6xl text-center my-8 text-stone-100">Leashes</h1>
+      <h1 className="text-6xl lg:text-7xl text-center my-8 text-stone-100">
+        Leashes
+      </h1>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 justify-items-center gap-4 max-w-5xl mx-auto">
         {leashes?.map((leash: Product) => (
           <Card

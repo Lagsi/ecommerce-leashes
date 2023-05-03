@@ -82,7 +82,7 @@ export default function Header() {
             </div>
             {itemsInCart.length >= 1 ? (
               <div className="">
-                {itemsInCart.map((item: any, i: any) => {
+                {itemsInCart.map((item, i: any) => {
                   totalAmount += item.price * item.quantity;
                   return (
                     <div key={i} className="grid grid-cols-[50%,1fr,1fr] gap-4">
