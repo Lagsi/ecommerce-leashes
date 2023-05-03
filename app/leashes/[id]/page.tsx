@@ -11,6 +11,13 @@ const getData = async (id: string) => {
   return leash;
 };
 
+export async function generateStaticParams() {
+  const leashes = await prisma.product.findMany();
+  return leashes.map((leash) => ({
+    id: leash.id,
+  }));
+}
+
 export default async function LeashPage({
   params,
 }: {
@@ -85,7 +92,12 @@ export default async function LeashPage({
               </div>
             )}
           </div>
-          <AddToCart id={leash.id} price={finalPrice} title={leash.title} />
+          <AddToCart
+            id={leash.id}
+            price={finalPrice}
+            title={leash.title}
+            color={leash.color}
+          />
         </div>
       </div>
     </>

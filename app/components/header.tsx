@@ -43,16 +43,19 @@ export default function Header() {
     <header className="z-50 h-16 fixed bg-stone-500 border-b border-stone-600 shadow-md w-full top-0">
       <div className="h-16 relative">
         <nav className="flex gap-5 justify-center items-center h-full">
-          <div className="h-full px-2 flex items-center text-stone-100 hover:bg-slate-100 hover:cursor-pointer hover:text-stone-500">
-            <Link className="text-xl font-semibold" href={"/"}>
-              Home
-            </Link>
-          </div>
-          <div className="h-full px-2 flex items-center text-stone-100 hover:bg-slate-100 hover:cursor-pointer hover:text-stone-500">
-            <Link className="text-xl font-semibold" href={"/leashes"}>
-              Leashes
-            </Link>
-          </div>
+          <Link
+            className="text-xl font-semibold h-full px-2 flex items-center text-stone-100 hover:bg-slate-100 hover:cursor-pointer hover:text-stone-500"
+            href={"/"}
+          >
+            <div>Home</div>
+          </Link>
+
+          <Link
+            className="text-xl font-semibold h-full px-2 flex items-center text-stone-100 hover:bg-slate-100 hover:cursor-pointer hover:text-stone-500"
+            href={"/leashes"}
+          >
+            <div>Leashes</div>
+          </Link>
         </nav>
         <div className="absolute right-3 top-10 z-10 rounded-full bg-teal-950 text-stone-100 text-xs px-1 text-center w-4 ">
           {itemsInCart.length}
@@ -72,7 +75,7 @@ export default function Header() {
             ref={cartRef}
             className={`absolute p-6 z-50 bg-stone-500 rounded-lg border-stone-700 border  ${
               cartOpen ? "right-14" : "-right-96"
-            } transition-all ease-in-out duration-1000`}
+            } transition-all ease-in-out`}
           >
             <div className="border-b">
               <h2 className="text-xl">Cart</h2>
@@ -83,9 +86,10 @@ export default function Header() {
                   totalAmount += item.price * item.quantity;
                   return (
                     <div key={i} className="grid grid-cols-[50%,1fr,1fr] gap-4">
-                      <h3>
-                        {`${item.title} ${item.color}`} x {item.quantity}
-                      </h3>
+                      <div>
+                        <h3>{`${item.title} x ${item.quantity}`}</h3>
+                        <span className="text-zinc-900">{`${item.color}`}</span>
+                      </div>
                       <span>${item.price * item.quantity}</span>
                       <button
                         onClick={() => {
