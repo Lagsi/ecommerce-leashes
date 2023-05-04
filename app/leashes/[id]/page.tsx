@@ -1,4 +1,5 @@
 import AddToCart from "@/app/components/addToCart";
+import ColorAndLength from "@/app/components/colorAndLength";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 
@@ -24,7 +25,6 @@ export default async function LeashPage({
   params: { id: string };
 }) {
   const leash = await getData(params.id);
-  console.log(leash);
 
   if (!leash) {
     return (
@@ -53,8 +53,9 @@ export default async function LeashPage({
         </div>
         <div className="p-4 flex flex-col gap-6 lg:max-w-md">
           <h1 className="text-stone-900 text-xl font-bold lg:text-4xl">
-            {leash.title} - {leash.color}
+            {leash.title}
           </h1>
+          <ColorAndLength leash={leash} />
           <p className="text-sm">
             (description) Lorem ipsum dolor sit amet, consectetur adipisicing
             elit. Repudiandae repellendus maiores mollitia accusamus asperiores.
@@ -96,7 +97,7 @@ export default async function LeashPage({
             id={leash.id}
             price={finalPrice}
             title={leash.title}
-            color={leash.color}
+            color={leash.color[0]}
           />
         </div>
       </div>

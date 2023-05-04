@@ -25,6 +25,12 @@ export default function Header() {
     }
   }, [itemsInCart]);
 
+  useEffect(() => {
+    if (itemsInCart.length === 0 && cartOpen === true) {
+      localStorage.setItem("itemsInCart", JSON.stringify([]));
+    }
+  }, [cartOpen]);
+
   //Checking for clicks outside our cart to close it
   const cartRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -85,22 +91,26 @@ export default function Header() {
                 {itemsInCart.map((item, i: any) => {
                   totalAmount += item.price * item.quantity;
                   return (
-                    <div key={i} className="grid grid-cols-[50%,1fr,1fr] gap-4">
+                    <div key={i} className="grid grid-cols-[1fr,0fr,0fr] gap-4">
                       <div>
                         <h3>{`${item.title} x ${item.quantity}`}</h3>
-                        <span className="text-zinc-900">{`${item.color}`}</span>
+                        <span className="text-zinc-900 block">{`${item.color}`}</span>
+                        <span className="text-zinc-900 block">{`${item.length}cm`}</span>
                       </div>
                       <span>${item.price * item.quantity}</span>
-                      <button
-                        onClick={() => {
-                          const filtered = itemsInCart.filter(
-                            (filter) => filter.id !== item.id
-                          );
-                          setItemsInCart(filtered);
-                        }}
-                      >
-                        <FaTrash className="mr-0 ml-auto" />
-                      </button>
+                      <div>
+                        <button
+                          onClick={() => {
+                            console.log(itemsInCart);
+                            const filtered = itemsInCart.filter(
+                              (filterItem) => filterItem !== item
+                            );
+                            setItemsInCart(filtered);
+                          }}
+                        >
+                          <FaTrash className="mr-0 ml-auto" />
+                        </button>
+                      </div>
                     </div>
                   );
                 })}

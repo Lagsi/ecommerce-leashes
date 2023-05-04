@@ -23,7 +23,7 @@ export default async function LeashesPage() {
             key={leash.id}
             productId={leash.id}
             productName={leash.title}
-            productColor={leash.color}
+            productColor={`${leash.color.length} colors`}
             productPrice={leash.price}
             imgSrc={leash.imgSrc!}
           />
@@ -33,7 +33,7 @@ export default async function LeashesPage() {
             productId={leash.id}
             key={leash.id}
             productName={leash.title}
-            productColor={leash.color}
+            productColor={`${leash.color.length} colors`}
             productPrice={leash.price}
             imgSrc={leash.imgSrc!}
           />

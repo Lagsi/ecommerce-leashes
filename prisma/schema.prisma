@@ -17,8 +17,8 @@ model Product {
   description String
   stock       Int
   price       Float
-  color       String
-  length      Int
+  color       String[]
+  length      Int[]
   imgSrc      String?
   onSale      Boolean  @default(false)
   salePercent Int?

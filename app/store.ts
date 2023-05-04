@@ -6,6 +6,12 @@ export type Item = {
   price: number;
   quantity: number;
   color: string;
+  length: number;
 };
 
 export const cart = atom<Item[]>([]);
+
+export const colorAndLength = atom({
+  color: "",
+  length: 0,
+});
