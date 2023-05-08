@@ -79,7 +79,7 @@ export default function Header() {
         {
           <div
             ref={cartRef}
-            className={`absolute p-6 z-50 bg-stone-500 rounded-lg border-stone-700 border  ${
+            className={`absolute p-6 z-50 text-stone-100 bg-stone-500 rounded-lg border-stone-700 border  ${
               cartOpen ? "right-14" : "-right-96"
             } transition-all ease-in-out`}
           >
@@ -94,10 +94,10 @@ export default function Header() {
                     <div key={i} className="grid grid-cols-[1fr,0fr,0fr] gap-4">
                       <div>
                         <h3>{`${item.title} x ${item.quantity}`}</h3>
-                        <span className="text-zinc-900 block">{`${item.color}`}</span>
-                        <span className="text-zinc-900 block">{`${item.length}cm`}</span>
+                        <span className="text-stone-200 text-sm block">{`${item.color}`}</span>
+                        <span className="text-stone-200 text-sm block">{`${item.length}cm`}</span>
                       </div>
-                      <span>${item.price * item.quantity}</span>
+                      <span>${(item.price * item.quantity).toFixed(2)}</span>
                       <div>
                         <button
                           onClick={() => {
@@ -114,9 +114,9 @@ export default function Header() {
                     </div>
                   );
                 })}
-                <div className="border-t mt-2 grid grid-cols-[50%,1fr,1fr] gap-4">
+                <div className="border-t mt-2 grid grid-cols-[1fr,0fr] gap-4">
                   <p>Total: </p>
-                  <p>${totalAmount}</p>
+                  <p>${totalAmount.toFixed(2)}</p>
                 </div>
                 <button
                   className="w-full border border-transparent text-stone-100 bg-teal-950 rounded-lg mt-4 hover:border-teal-950

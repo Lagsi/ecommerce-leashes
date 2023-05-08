@@ -1,8 +1,9 @@
 "use client";
 
 import { Product } from "@prisma/client";
-import { colorAndLength } from "../store";
+import { colorAndLength, finalPrice } from "../store";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 
 interface Props {
   leash: Product;
@@ -10,6 +11,7 @@ interface Props {
 
 export default function ColorAndLength({ leash }: Props) {
   const [options, setOptions] = useAtom(colorAndLength);
+  const [price, setPrice] = useAtom(finalPrice);
 
   function handleChange(event: any) {
     const { name, value } = event.target;
@@ -20,6 +22,14 @@ export default function ColorAndLength({ leash }: Props) {
       };
     });
   }
+
+  useEffect(() => {
+    setPrice(
+      options.length > 150
+        ? ((options.length - 150) / 50) * (leash.price / 4) + leash.price
+        : leash.price
+    );
+  }, [options]);
 
   return (
     <div className="flex flex-col gap-4">

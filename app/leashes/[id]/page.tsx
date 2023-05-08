@@ -1,5 +1,6 @@
 import AddToCart from "@/app/components/addToCart";
 import ColorAndLength from "@/app/components/colorAndLength";
+import Price from "@/app/components/price";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 
@@ -62,36 +63,7 @@ export default async function LeashPage({
             Non.
           </p>
           <div className="flex justify-between">
-            {leash.onSale ? (
-              <>
-                <div className="flex gap-3 items-center">
-                  <span className="text-xl font-bold text-stone-900">
-                    $
-                    {leash.saleAmount
-                      ? (leash.price - leash.saleAmount).toFixed(2)
-                      : (leash.price * (1 - leash.salePercent! / 100)).toFixed(
-                          2
-                        )}
-                  </span>
-                  <span className="bg-teal-800 text-teal-950 px-2 rounded-md font-semibold text-sm">
-                    {leash.saleAmount
-                      ? "-$" + leash.saleAmount
-                      : leash.salePercent + "%"}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-stone-800 font-bold line-through">
-                    ${leash.price}
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div>
-                <span className="text-xl font-bold text-stone-900">
-                  ${leash.price}
-                </span>
-              </div>
-            )}
+            <Price leash={leash} />
           </div>
           <AddToCart
             id={leash.id}

@@ -15,3 +15,5 @@ export const colorAndLength = atom({
   color: "",
   length: 0,
 });
+
+export const finalPrice = atom(0);
