@@ -66,6 +66,7 @@ export default async function LeashPage({
             <Price leash={leash} />
           </div>
           <AddToCart
+            leash={leash}
             id={leash.id}
             price={finalPrice}
             title={leash.title}

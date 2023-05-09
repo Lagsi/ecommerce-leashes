@@ -4,15 +4,23 @@ import { useAtom, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
 import { cart, colorAndLength } from "../store";
+import { Product } from "@prisma/client";
 
 interface AddToCartProps {
   id: string;
   price: number;
   title: string;
   color: string;
+  leash: Product;
 }
 
-export default function AddToCart({ id, price, title, color }: AddToCartProps) {
+export default function AddToCart({
+  id,
+  price,
+  title,
+  color,
+  leash,
+}: AddToCartProps) {
   const [nOfitems, setNOfItems] = useState(1);
   const [itemsInCart, setItemsInCart] = useAtom(cart);
   const [successVisible, setSuccessVisible] = useState(false);
@@ -27,7 +35,8 @@ export default function AddToCart({ id, price, title, color }: AddToCartProps) {
     title: string,
     color: string,
     length: number,
-    quantity: number
+    quantity: number,
+    imgSrc: string
   ) {
     let item = {
       id: id,
@@ -36,6 +45,7 @@ export default function AddToCart({ id, price, title, color }: AddToCartProps) {
       color: color,
       length: length,
       quantity: quantity,
+      imgSrc: imgSrc,
     };
     const identicalItem = itemsInCart.find(
       (x) =>
@@ -73,7 +83,15 @@ export default function AddToCart({ id, price, title, color }: AddToCartProps) {
       <div className="flex-grow ">
         <button
           onClick={() =>
-            addToCart(id, price, title, options.color, options.length, nOfitems)
+            addToCart(
+              id,
+              price,
+              title,
+              options.color,
+              options.length,
+              nOfitems,
+              leash.imgSrc!
+            )
           }
           className={`w-full flex justify-center items-center gap-2 text-center rounded-lg py-2 px-2  bg-teal-950 hover:bg-opacity-60 hover:shadow-teal-950 hover:shadow-2xl`}
         >

@@ -10,12 +10,13 @@ import { FaShoppingCart, FaTrash } from "react-icons/fa";
 export default function Header() {
   const [itemsInCart, setItemsInCart] = useAtom(cart);
   const [cartOpen, setCartOpen] = useState(() => false);
+  const [run, setRun] = useState(Boolean);
   let totalAmount: number = 0;
   const router = useRouter();
 
   //Setting the itemsInCart atom from localStorage value
   useEffect(() => {
-    setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!) || []);
+    setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!));
   }, []);
 
   //Setting the localStorage value from itemsInChart, every time our state is changing, but only if itemsInChart(atom).length is > 0
@@ -23,13 +24,8 @@ export default function Header() {
     if (itemsInCart.length > 0) {
       localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
     }
+    console.log(itemsInCart);
   }, [itemsInCart]);
-
-  useEffect(() => {
-    if (itemsInCart.length === 0 && cartOpen === true) {
-      localStorage.setItem("itemsInCart", JSON.stringify([]));
-    }
-  }, [cartOpen]);
 
   //Checking for clicks outside our cart to close it
   const cartRef = useRef<HTMLDivElement>(null);
@@ -101,7 +97,6 @@ export default function Header() {
                       <div>
                         <button
                           onClick={() => {
-                            console.log(itemsInCart);
                             const filtered = itemsInCart.filter(
                               (filterItem) => filterItem !== item
                             );
@@ -122,7 +117,7 @@ export default function Header() {
                   className="w-full border border-transparent text-stone-100 bg-teal-950 rounded-lg mt-4 hover:border-teal-950
                   hover:bg-stone-100 hover:text-teal-950 transition ease-in-out"
                   onClick={() => {
-                    router.push("/leashes");
+                    router.push("/checkout");
                     setCartOpen(false);
                   }}
                 >

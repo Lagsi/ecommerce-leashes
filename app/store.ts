@@ -3,6 +3,7 @@ import { atom } from "jotai";
 export type Item = {
   id: string;
   title: string;
+  imgSrc: string;
   price: number;
   quantity: number;
   color: string;
