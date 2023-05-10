@@ -70,7 +70,6 @@ export default async function LeashPage({
             id={leash.id}
             price={finalPrice}
             title={leash.title}
-            color={leash.color[0]}
           />
         </div>
       </div>

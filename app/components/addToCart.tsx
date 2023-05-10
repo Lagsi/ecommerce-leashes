@@ -10,17 +10,10 @@ interface AddToCartProps {
   id: string;
   price: number;
   title: string;
-  color: string;
   leash: Product;
 }
 
-export default function AddToCart({
-  id,
-  price,
-  title,
-  color,
-  leash,
-}: AddToCartProps) {
+export default function AddToCart({ id, price, title, leash }: AddToCartProps) {
   const [nOfitems, setNOfItems] = useState(1);
   const [itemsInCart, setItemsInCart] = useAtom(cart);
   const [successVisible, setSuccessVisible] = useState(false);
