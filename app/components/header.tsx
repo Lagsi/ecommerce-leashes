@@ -16,7 +16,7 @@ export default function Header() {
 
   //Setting the itemsInCart atom from localStorage value
   useEffect(() => {
-    setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!));
+    setItemsInCart(JSON.parse(localStorage.getItem("itemsInCart")!) || []);
   }, []);
 
   //Setting the localStorage value from itemsInChart, every time our state is changing, but only if itemsInChart(atom).length is > 0
@@ -24,7 +24,6 @@ export default function Header() {
     if (itemsInCart.length > 0) {
       localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
     }
-    console.log(itemsInCart);
   }, [itemsInCart]);
 
   //Checking for clicks outside our cart to close it
@@ -100,7 +99,15 @@ export default function Header() {
                             const filtered = itemsInCart.filter(
                               (filterItem) => filterItem !== item
                             );
-                            setItemsInCart(filtered);
+                            if (filtered.length === 0) {
+                              localStorage.setItem(
+                                "itemsInCart",
+                                JSON.stringify([])
+                              );
+                              setItemsInCart(filtered);
+                            } else {
+                              setItemsInCart(filtered);
+                            }
                           }}
                         >
                           <FaTrash className="mr-0 ml-auto" />
